@@ -3,7 +3,7 @@
     <h2>商品列表</h2>
 
     <el-row class="mb-10">
-    <el-button type="primary"  @click="dialogFormVisible = true">添加商品</el-button>
+    <el-button type="primary"  @click="add">添加商品</el-button>
     <el-button @click="loadData">从远程取</el-button>
 
     </el-row>
@@ -34,7 +34,7 @@
         <template scope="scope">
           <el-button
                   size="small"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  @click="edit(scope.$index, scope.row)">编辑</el-button>
           <el-button
                   size="small"
                   type="danger"
@@ -67,19 +67,19 @@
     <el-dialog title="添加商品" v-model="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="品牌" :label-width="formLabelWidth">
-          <el-input v-model="addcar.trademark"></el-input>
+          <el-input v-model="car.trademark"></el-input>
         </el-form-item>
         <el-form-item label="型号" :label-width="formLabelWidth">
-          <el-input v-model="addcar.name"></el-input>
+          <el-input v-model="car.name"></el-input>
         </el-form-item>
         <el-form-item label="价格" :label-width="formLabelWidth">
-          <el-input v-model="addcar.price"></el-input>
+          <el-input v-model="car.price"></el-input>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addCar">保存</el-button>
+        <el-button type="primary" @click="save">保存</el-button>
       </div>
     </el-dialog>
 
@@ -87,18 +87,18 @@
     <div>
       <div>
         <label>品牌</label>
-        <el-input type="text" v-model="addcar.trademark"></el-input>
+        <el-input type="text" v-model="car.trademark"></el-input>
       </div>
       <div>
         <label>型号</label>
-        <el-input type="text" v-model="addcar.name"></el-input>
+        <el-input type="text" v-model="car.name"></el-input>
       </div>
       <div>
         <label>价格</label>
-        &lt;!&ndash;<input type="text" v-model="addcar.price">&ndash;&gt;
-        <el-input type="text" v-model="addcar.price"></el-input>
+        &lt;!&ndash;<input type="text" v-model="car.price">&ndash;&gt;
+        <el-input type="text" v-model="car.price"></el-input>
       </div>
-      <button type="button" @click="addCar">保存</button>
+      <button type="button" @click="car">保存</button>
       <button type="button" @click="loadData">从远程取</button>
     </div>-->
   </main-layout>
@@ -115,7 +115,9 @@
       return {
         dialogFormVisible: false,
         formLabelWidth: '60px',
-        addcar:{},
+        editFlag: false,
+        editIndex: -1,
+        car:{},
         cars:[{
           id:1,
           name:'x1',
@@ -145,17 +147,33 @@
       }
     },
     methods:{
-      addCar (){
-        this.addcar.id = this.cars.length + 1;
-        this.cars.push(this.addcar);
-        this.addcar = {id:'',
-          name:'',
-          trademark:'',
-          price:''};
+      save (){
+        if(this.editFlag){
+          this.cars.splice(this.editIndex, 1, this.car)
+        }else{
+          this.car.id = this.cars.length + 1;
+          this.cars.push(this.car);
+        }
+        this.car = {id:'',
+            name:'',
+            trademark:'',
+            price:''};
         this.dialogFormVisible = false
       },
       delBook(index, row){
         this.cars.splice(index, 1);
+      },
+      edit(index, row){
+        this.car = row;
+        this.dialogFormVisible = true;
+
+        this.editIndex = index;
+        this.editFlag = true;
+      },
+      add (){
+        this.editIndex = -1;
+        this.editFlag = false;
+        this.dialogFormVisible = true;
       },
 
       loadData (){
