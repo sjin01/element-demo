@@ -37,6 +37,11 @@
 
 <style scoped>
   .active {
-    color: cornflowerblue;
+    color: #20a0ff;
+  }
+  a{
+    display: block;
+    color:#c0ccda;
+    text-decoration: none;
   }
 </style>
