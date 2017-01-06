@@ -189,8 +189,6 @@
         console.log(page);
       }
 
-
-
       /*// $resource 另一个从远程取数据方法
       getCustomers: function() {
         var resource = this.$resource('src/json/cars.json');
