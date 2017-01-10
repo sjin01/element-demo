@@ -3,10 +3,12 @@ import routes from './routes'
 import ElementUI from 'element-ui'
 //import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-default/index.css'
-// import App from './App.vue'
+
+import VueResource from 'vue-resource'
+
 
 Vue.use(ElementUI);
-Vue.use(require('vue-resource'));
+Vue.use(VueResource);
 
 const app = new Vue({
   el: '#app',
