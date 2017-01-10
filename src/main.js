@@ -4,11 +4,11 @@ import ElementUI from 'element-ui'
 //import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-default/index.css'
 
-import VueResource from 'vue-resource'
-
+/*import VueResource from 'vue-resource'
+Vue.use(VueResource);*/
 
 Vue.use(ElementUI);
-Vue.use(VueResource);
+Vue.use(require('vue-resource'));
 
 const app = new Vue({
   el: '#app',
